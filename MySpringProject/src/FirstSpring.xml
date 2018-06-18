@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:aop="http://www.springframework.org/schema/aop"   
+       xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans.xsd   
+       http://www.springframework.org/schema/aop   
+       http://www.springframework.org/schema/aop/spring-aop.xsd">  
+       
+<bean id="Address1" class="com.spring.first.Address">   <!-- Bean to populate the Address objects -->
+  <property name="city" value="Pune"></property>
+  <property name="state" value="Maharashtra"></property>
+  <property name="country" value="India"></property>
+</bean>
+
+<bean id="Class1" class="com.spring.first.Class">     <!-- Beans to populate Class objects -->
+   <property name="classid" value="1"></property> 
+   <property name="name" value="Science"></property>
+   <property name="teacher" value="Dr. Ramakanth Saha"></property>
+</bean>
+<bean id="Class2" class="com.spring.first.Class">     <!-- Beans to populate Class objects -->  
+   <property name="classid" value="2"></property>
+   <property name="name" value="Maths"></property>
+   <property name="teacher" value="Dr. Mrinal Ojha"></property>
+</bean>
+
+<!-- Student class with the below types of Setter injection
+   1. Normal Setter method
+   2. Dependent reference Object - Address 
+   3. List collection objects 
+   4. List of dependent class - Class's               -->
+<bean id="student" class="com.spring.first.Student">
+  <property name="name" value="Milli Sharma"></property>
+  <property name="id" value="102"></property>       <!-- Setter Injection (SI) -->
+  <property name="add" ref="Address1"></property>   <!-- SI with dependent Object : Reference to the Address object added-->
+  <property name="books">							<!-- SI with collection :List of books added to the Student obj -->
+    <list>
+      <value>Java Beginners</value>
+      <value>Advance Java</value>
+      <value>OCJP Java</value>
+    </list>
+  </property>
+  <property name="classes">                <!-- SI with collection of Objects : List of classes added to the Student obj -->
+    <list>
+      <ref bean="Class1"/>
+      <ref bean="Class2"/>
+    </list>
+  </property>
+  <property name="examMarks">
+    <map>
+      <entry key="Math" value="89"/>
+      <entry key="Science" value="88"/>
+      <entry key="Geography" value="78"/>
+    </map>
+  </property>
+</bean>
+</beans>
+       

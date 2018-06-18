@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:aop="http://www.springframework.org/schema/aop"   
+       xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans.xsd   
+       http://www.springframework.org/schema/aop   
+       http://www.springframework.org/schema/aop/spring-aop.xsd">  
+
+<!--  This will work and will call the Constructor - 3  -->
+<bean id="acc" class="com.spring.autowiring.Account">
+   <constructor-arg value="101901"></constructor-arg>
+   <constructor-arg value="Kishore Sharma"></constructor-arg>
+   <constructor-arg value="HDFC Bank"></constructor-arg>
+</bean>  
+
+<?Ignore  Commented but working : Defaault Autowiring mode. 
+  We have to explicitly perform the DI by using Constructor or Setter method.  
+<bean id="tran" class="com.spring.autowiring.Transaction">
+  <property name="acc" ref="acc"></property>
+</bean> 
+?>
+
+<?ignore  Commented but working   
+<!-- Instead of using Setter injection, we can do Autowire="byName", "byType", "constructor", 
+  While creating this bean, It will check if bean with name acc (same name in Transaction & bean configuration) is defined. 
+  if defined, it will get automatically wired and injected at run time with Transaction instance.   --> 
+<bean id="tran" autowire="byName" class="com.spring.autowiring.Transaction">
+</bean>  
+ ?>
+
+<?ignore  Commented but working     
+<!-- While creating this bean, It will check if bean with type Account is defined. 
+  if defined, it will get automatically wired and injected at run time with Transaction instance. 
+  If there are more than one bean with the same type, than there is ambiguity and error -->   
+<bean id="tran" autowire="byType" class="com.spring.autowiring.Transaction">
+</bean>  
+?>
+
+<?ignore  Commented but working  
+<!-- While creating this bean, It will check if bean with type Account is defined. 
+  if defined, it will get automatically wired and injected at run time with Constructor of the Transaction instance. 
+  If there are more than one bean with the same type, than there is ambiguity and error -->     ?>
+<bean id="tran" autowire="constructor" class="com.spring.autowiring.Transaction">
+   <!--  <constructor-arg ref="acc"></constructor-arg>     This line is not reqd --> 
+</bean>  
+
+     
+</beans>

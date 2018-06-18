@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:aop="http://www.springframework.org/schema/aop"   
+       xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans.xsd   
+       http://www.springframework.org/schema/aop   
+       http://www.springframework.org/schema/aop/spring-aop.xsd">  
+       
+<bean id="Address1" class="com.spring.first.Address">
+  <constructor-arg value="Pune"></constructor-arg>
+  <constructor-arg value="Maharashtra"></constructor-arg>
+  <constructor-arg value="India"></constructor-arg>
+</bean>
+
+<bean id="Class1" class="com.spring.first.Class">     <!-- Beans to populate Class objects -->
+   <constructor-arg value="1"></constructor-arg> 
+   <constructor-arg value="Science"></constructor-arg>
+   <constructor-arg value="Dr. Ramakanth Saha"></constructor-arg>
+</bean>
+<bean id="Class2" class="com.spring.first.Class">     <!-- Beans to populate Class objects -->  
+   <constructor-arg value="2"></constructor-arg>
+   <constructor-arg value="Maths"></constructor-arg>
+   <constructor-arg value="Dr. Mrinal Ojha"></constructor-arg>
+</bean>
+<bean id="class3" class="com.spring.first.Class">
+	<constructor-arg value="3"/>
+	<constructor-arg value="Geograpy"/>
+	<constructor-arg value="Jiten Deka"/>
+</bean>
+
+<!-- Student class with the below types of Constructor injection
+   1. Normal setting of the constructor arguments
+   2. Dependent reference Object - Address 
+   3. List collection objects 
+   4. List of dependent class - Class's 
+   5. Map having Subject = Marks value pair              -->
+<bean id="student" class="com.spring.first.Student">
+  <constructor-arg value="101" type="int"></constructor-arg>            <!-- Normal Constructor Injection (CI) -->
+  <constructor-arg value="Kishore Sharma" type="String"></constructor-arg>
+  <constructor-arg>
+      <ref bean="Address1"/>                <!-- CI with dependent Object : Reference to the Address object added-->
+  </constructor-arg>    
+  <constructor-arg>
+    <list>                                  <!-- CI with collection :List of books added to the Student obj -->
+      <value>Java Advance</value>
+      <value>Java Basics</value>
+    </list>
+  </constructor-arg>
+  <constructor-arg>
+    <list>                                 <!-- CI with collection of Objects : List of classes added to the Student obj -->
+      <ref bean="Class1"/>
+      <ref bean="Class2"/>
+      <ref bean="class3"/>
+    </list>
+  </constructor-arg>
+  <constructor-arg> 					   <!-- CI with collection key value pairs : Map  -->  
+  <map>
+    <entry key="Math" value="99"/>
+    <entry key="Science" value="78"/>
+    <entry key="Sanskrit" value="99"/>
+  </map>
+  </constructor-arg>  
+</bean>
+
+</beans>
+       

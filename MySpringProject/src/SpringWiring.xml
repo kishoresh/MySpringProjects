@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:aop="http://www.springframework.org/schema/aop"   
+       xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans.xsd   
+       http://www.springframework.org/schema/aop   
+       http://www.springframework.org/schema/aop/spring-aop.xsd">  
+
+<!-- Here we do wiring using Constructor Injection and Setter Method wiring. -->
+
+<!-- This will find matching Constructor-1, and of same data type so no error 
+<bean id="acc" class="com.spring.autowiring.Account">
+   <constructor-arg value="90019001"></constructor-arg>
+</bean> -->
+
+<!-- Error. This will raise an ambiguity, as there is one arg defined, it finds matching Constructor-1, but type mismatches  
+<bean id="acc" class="com.spring.autowiring.Account">
+   <constructor-arg value="HDFC Bank"></constructor-arg>
+</bean> -->
+
+<!--  This will work and will call the Constructor - 3  -->
+<bean id="acc" class="com.spring.autowiring.Account">
+   <constructor-arg value="101901"></constructor-arg>
+   <constructor-arg value="Kishore Sharma"></constructor-arg>
+   <constructor-arg value="HDFC Bank"></constructor-arg>
+</bean>  
+
+<!-- Works fine. Calls Constructor-4. Depending on the data Spring is smart enough to pick Constructor-4 instead of Constructor-3 
+<bean id="acc" class="com.spring.autowiring.Account">   
+   <constructor-arg value="Kishore Sharma"></constructor-arg>   
+   <constructor-arg value="10190123"></constructor-arg>
+</bean>  -->
+
+<bean id="tran" class="com.spring.autowiring.Transaction">
+    <property name="acc" ref="acc"></property>
+</bean>  
+    
+</beans>
